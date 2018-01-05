@@ -2,7 +2,7 @@
 
 ## Overview
 
-togglbuf is a command-line interface for toggl.com accounts.
+**togglbuf** is a command-line interface for toggl.com accounts.
 
 This application buffers between 2 toggl accounts - `src` and `dst`
 
@@ -46,6 +46,32 @@ Command-line interface will be opened
 * **sync**                         - syncronize target clients, projects, tasks with source
 * **cpte date_from date_till**     - copy time entries started in date range, date format: YYYY-MM-DD (year-month-date)
 * **exit**                         - exit togglebuf
+
+## Toggl limitations
+
+### Toggl users cannot be copied between Toggl accounts. 
+
+Projects may have users list (team), Tasks and Time entries may have attribute User.
+
+Users cannot be copied, invited only (need different e-mails)
+
+togglebuf script cannot link users to Projects-Tasks-Time_entries while copying
+before they activate their accounts.
+
+Copy objects without Users set:
+
+* For Projects without team (Everybody in workspace can see this project mode)
+Toggl API set same mode for copied Projects and shows anyone in Project list.
+* For Projects with team Toggl API set for copied Projects team with one
+member = the user, whose token used to copy objects.
+* For Tasks Toggl API set anyone
+* For Time_entries Toggl API set the user, whose token used to copy objects.
+
+### togglebuf script do not link Users to copied objects in target Toggl account.
+
+This can cause the error **Cannot create target entry ... User cannot access the selected project**
+
+Best is to use single token for all copy operations.
 
 ## Notes
 
