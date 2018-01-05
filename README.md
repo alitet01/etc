@@ -69,9 +69,9 @@ member = the user, whose token used to copy objects.
 
 ### togglebuf script do not link Users to copied objects in target Toggl account.
 
-This can cause the error **Cannot create target entry ... User cannot access the selected project**
+This can cause the error `Cannot create target entry ... User cannot access the selected project`
 
-Best is to use single token for all copy operations.
+**Best is to use single token for all copy operations.**
 
 ## Notes
 
