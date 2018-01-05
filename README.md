@@ -71,7 +71,7 @@ member = the user, whose token used to copy objects.
 
 This can cause the error `Cannot create target entry ... User cannot access the selected project`
 
-**Best is to use single token for all copy operations.**
+**Best is to use single target token for all copy operations.**
 
 ## Notes
 
