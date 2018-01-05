@@ -2,12 +2,17 @@
 
 ## Overview
 
-togglbuf is a command-line interface for toggl.com account.
+togglbuf is a command-line interface for toggl.com accounts.
+
+This application buffers between 2 toggl accounts - `src` and `dst`
+
+It allows to separate how R&D team reports the working hours vs. how customer can view the progress of budget utilization/time spent/break down reports
 
 
 ## Requirements
 
-* pytoggl library
+1. access to this repository
+2. pytoggl library
 
 
 ## Installation
@@ -61,3 +66,12 @@ with same name links to objects will be lost because new objects will get other 
 * Target toggl account must not have any clients, projects, tasks not present in
 source account. Togglebuf use this check to avoid duplicates while sync operation
 
+## References:
+
+- Toggl REST API v8:
+- Toggl REST python client
+
+## Authors:
+
+- Victor Timohin <vvt@opsguru.io>
+- Max Kovgan <max@opsguru.io>
