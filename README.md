@@ -117,7 +117,7 @@ source account. Togglebuf use this check to avoid duplicates while sync operatio
 
 - Documentation for the Toggl API v8: <https://github.com/toggl/toggl_api_docs/blob/master/toggl_api.md>
 
-- the Toggl Reports API v2: <https://github.com/toggl/toggl_api_docs/blob/master/reports.md>
+- The Toggl Reports API v2: <https://github.com/toggl/toggl_api_docs/blob/master/reports.md>
 
 - Toggl REST python client: <https://github.com/jamespcole/pytoggl>
 
