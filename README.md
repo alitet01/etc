@@ -44,19 +44,13 @@ or
 Command-line interface will be opened
 
 4. Commands:
-* **clients**                      - show clients in both source and target toggl connections
-* **projects**                     - show projects
-* **tasks**                        - show tasks
-* **sync**                         - syncronize target clients, projects, tasks with source
-* **cpte date_from date_till**     - copy time entries started in date range, date format: YYYY-MM-DD (year-month-date)
-* **exit**                         - exit togglebuf
 
 | Command | Description |
 |---------|-------------|
-| clients | show clients in both source and target toggl connections |
-| projects | show projects |
-| tasks | show tasks |
-| sync | syncronize target clients, projects, tasks with source |
+| **clients** | show clients in both source and target toggl connections |
+| **projects** | show projects |
+| **tasks** | show tasks |
+| **sync** | syncronize target clients, projects, tasks with source |
 | **cpte date_from date_till** | copy time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
 | **exit** | exit togglebuf |
 
