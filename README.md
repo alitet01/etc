@@ -4,7 +4,7 @@
 
 **togglbuf** is a command-line interface for toggl.com accounts.
 
-This application buffers between 2 toggl accounts - `src` and `dst`
+This application buffers between 2 toggl accounts - **src** and **dst**
 
 It allows to separate how R&D team reports the working hours vs. how customer can view the progress of budget utilization/time spent/break down reports
 
@@ -18,11 +18,15 @@ It allows to separate how R&D team reports the working hours vs. how customer ca
 ## Installation
 
 * Install toggl library, branch Togglebuf_support
+
 `pip install git+git://github.com/ops-guru/pytoggl.git@Togglebuf_support`
 
 * Install application
+
 `git clone git@github.com:ops-guru/togglebuf.git`
+
 or
+
 `download togglebuf-master.zip from https://github.com/ops-guru/togglebuf`
 
 
