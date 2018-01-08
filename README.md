@@ -39,10 +39,10 @@ or
 
 1. Go to togglebuf folder
 2. Check You have write access. If not set permission to write.
-
 ### Use togglebuf as script
 3. Run `python togglebuf.py command`
 4. Commands:
+
 | Command | Description |
 |---------|-------------|
 | **clients** | show clients in both source and target toggl connections |
@@ -57,7 +57,7 @@ or
 
 Command-line interface will be opened with prompt $>
 
-6. Use commands listed below
+6. Use commands listed above
 
 ## Toggl limitations
 
