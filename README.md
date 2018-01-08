@@ -38,13 +38,11 @@ or
 ## Usage
 
 1. Go to togglebuf folder
-2. Check You have write access if not set permission to write
-3. Run `python togglebuf.py`
+2. Check You have write access. If not set permission to write.
 
-Command-line interface will be opened
-
+### Use togglebuf as script
+3. Run `python togglebuf.py command`
 4. Commands:
-
 | Command | Description |
 |---------|-------------|
 | **clients** | show clients in both source and target toggl connections |
@@ -53,6 +51,13 @@ Command-line interface will be opened
 | **sync** | syncronize target clients, projects, tasks with source |
 | **cpte date_from date_till** | copy time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
 | **exit** | exit togglebuf |
+
+### Use togglebuf as shell
+5. Run `python togglebuf.py`
+
+Command-line interface will be opened with prompt $>
+
+6. Use commands listed below
 
 ## Toggl limitations
 
@@ -90,8 +95,8 @@ link new Time entries to Projects owned by another user. This can cause the erro
 
 * Some platforms have `pip3` instead of `pip` and `python3` instead of `python` commands
 
-* Syncronize target clients, projects, tasks with source first before copy time entries
-Time entries may have links to this objects ids
+* Syncronize target clients, projects, tasks with source first before copy time entries.
+Time entries may be linked to this objects ids
 
 * Wait at list 30 seconds after copying objects for changes to take effect. Then to see
 results in web interface You have to reload page.
@@ -111,7 +116,9 @@ source account. Togglebuf use this check to avoid duplicates while sync operatio
 ## References:
 
 - Documentation for the Toggl API v8: <https://github.com/toggl/toggl_api_docs/blob/master/toggl_api.md>
-and the Toggl Reports API v2: <https://github.com/toggl/toggl_api_docs/blob/master/reports.md>
+
+- the Toggl Reports API v2: <https://github.com/toggl/toggl_api_docs/blob/master/reports.md>
+
 - Toggl REST python client: <https://github.com/jamespcole/pytoggl>
 
 ## Authors:
