@@ -90,12 +90,11 @@ link new Time entries to Projects owned by another user. This can cause the erro
 
 * Some platforms have `pip3` instead of `pip` and `python3` instead of `python` commands
 
-* To see sync results in web interface You have to reload page
-
 * Syncronize target clients, projects, tasks with source first before copy time entries
 Time entries may have links to this objects ids
 
-* Wait at list 30 seconds after copy time entries for changes to take effect
+* Wait at list 30 seconds after copying objects for changes to take effect. Then to see
+results in web interface You have to reload page.
 
 * Copy time entries dates cover the period from date_from 00:00 Your time till date_till
 23:59 Your time. It is better to set Timezone UTC+00 in user profile for the user
