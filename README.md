@@ -63,7 +63,8 @@ config:
     raw_suffix: '_raw'
 ```
 
-#### Note: previous version used configuration file `settings.json`. Please copy Toggl Api tokens for source
+#### New version note:
+previous version used configuration file `settings.json`. Please copy Toggl Api tokens for source
 and target connections from settings.json to `config.yml`. 
 
 
