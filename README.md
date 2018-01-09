@@ -33,15 +33,10 @@ or
 
 ## Configuration
 
-* Toggl Api tokens for source and target connections must be filled in settings.json file. 
-
-
-## ===Configuration===
-
 the configuration usually resides under the directory `~/.togglebuf` and comprises the following files:
 - `config.yml`: general configuration
 
-### ===Configuration file "config.yml" schema:===
+### Configuration file "config.yml" schema:
 
 ```
 config:
@@ -67,6 +62,10 @@ config:
     api_key: <api key>
     raw_suffix: '_raw'
 ```
+
+#### Note: previous version used configuration file `settings.json`. Please copy Toggl Api tokens for source
+and target connections from settings.json to `config.yml`. 
+
 
 
 ### ===Example usages===
