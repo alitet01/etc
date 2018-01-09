@@ -13,6 +13,7 @@ It allows to separate how R&D team reports the working hours vs. how customer ca
 
 1. access to this repository
 2. pytoggl library
+3. PyYAML
 
 
 ## Installation
@@ -65,7 +66,6 @@ config:
   target:
     api_key: <api key>
     raw_suffix: '_raw'
-
 ```
 
 
