@@ -1,4 +1,4 @@
-# Togglebuf application
+# togglebuf - buffer for toggl
 
 ## Overview
 
@@ -33,6 +33,58 @@ or
 ## Configuration
 
 * Toggl Api tokens for source and target connections must be filled in settings.json file. 
+
+
+## ===Configuration===
+
+the configuration usually resides under the directory `~/.togglebuf` and comprises the following files:
+- `config.yml`: general configuration
+
+### ===Configuration file "config.yml" schema:===
+
+```
+config:
+  version: 1.0
+  source:
+    api_key: <api key>
+    projects:
+      include:
+      - proj2
+      - proj3
+      - ...
+      exclude:
+      - proj1
+      - projB
+    clients:
+      include:
+      - clientA
+      - clientC
+      exclude:
+      - clientB
+      - clientD
+  target:
+    api_key: <api key>
+    raw_suffix: '_raw'
+
+```
+
+
+### ===Example usages===
+
+* read help (`-h|--help`):
+```
+togglebuf --help
+```
+
+* initialize/generate config file (`-i|--init`):
+```
+togglebuf --init
+```
+
+* use alternative config file location (`-c|--config`):
+```
+togglebuf --config /path/to/alternative/conf.yml
+```
 
 
 ## Usage
