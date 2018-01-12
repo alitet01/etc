@@ -28,7 +28,11 @@ It allows to separate how R&D team reports the working hours vs. how customer ca
 
 or
 
-`download togglebuf-master.zip from https://github.com/ops-guru/togglebuf`
+`download togglebuf.tar.gz from https://github.com/ops-guru/togglebuf/blob/Code_style_improvement/togglebuf.tar.gz`
+
+#### Note:
+
+* Some platforms have `pip3` instead of `pip` and `python3` instead of `python` commands
 
 
 ## Configuration
@@ -63,14 +67,39 @@ config:
     raw_suffix: '_raw'
 ```
 
+Please fill file "config.yml" with actual data. Fields version, source-api_key, target-api_key
+and target-raw_suffix are mandatory.
+
 #### New version note:
-previous version used configuration file `settings.json`. Please copy Toggl Api tokens for source
-and target connections from settings.json to `config.yml`. 
+If You used previous version of togglebuf
+1. Please copy Toggl Api tokens for source and target connections from `settings.json` to `config.yml`.
+2. Please reinstall Pytoggl library to get last version.
 
 
+## Usage
 
-### ===Example usages===
+1. Go to togglebuf folder
+2. Check You have write access. If not set permission to write.
+3. Run `python togglebuf.py [options] command`
+4. Commands:
 
+| Command | Description |
+|---------|-------------|
+| **clients** | show clients in both source and target toggl connections |
+| **projects** | show projects |
+| **tasks** | show tasks |
+| **sync** | syncronize target clients, projects, tasks with source |
+| **cpte date_from date_till** | copy time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
+| **exit** | exit interactive mode |
+|---------|-------------|
+| Option  | Description |
+|---------|-------------|
+| **-h|--help** | print help |
+| **-i|--init** | initialize/generate config file |
+| **-c|--config /path/to/alternative/conf.yml** | use alternative config file |
+| **-s|--shell** | interactive mode |
+
+### Example usages
 * read help (`-h|--help`):
 ```
 togglebuf --help
@@ -86,69 +115,30 @@ togglebuf --init
 togglebuf --config /path/to/alternative/conf.yml
 ```
 
+* use interactive mode (`-s|--shell`):
+```
+togglebuf --shell
+```
+Command-line interface will be opened with prompt **$>**
 
-## Usage
+* list client objects (`clients`):
+```
+togglebuf clients
+```
 
-1. Go to togglebuf folder
-2. Check You have write access. If not set permission to write.
-### Use togglebuf as script
-3. Run `python togglebuf.py command`
-4. Commands:
+## Target Toggl object structure.
 
-| Command | Description |
-|---------|-------------|
-| **clients** | show clients in both source and target toggl connections |
-| **projects** | show projects |
-| **tasks** | show tasks |
-| **sync** | syncronize target clients, projects, tasks with source |
-| **cpte date_from date_till** | copy time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
-| **exit** | exit togglebuf |
+togglebuf create two target Projects for each source one: same name and with suffix
+(raw_suffix from configuration file). All tasks and time entries get link to suffixed
+projects while copying. After some of then could be moved to Projects with source
+names manually.
 
-### Use togglebuf as shell
-5. Run `python togglebuf.py`
 
-Command-line interface will be opened with prompt $>
-
-6. Use commands listed above
-
-## Toggl limitations
-
-### Full Toggl data is visible only to workspace administrators.
-
-Use administrative accounts tokens to copy between Toggl accounts.
-
-### Toggl users cannot be copied between Toggl accounts. 
-
-Projects may have users list (team), Tasks and Time entries may have attribute User.
-
-Users cannot be copied, invited only (need different e-mails)
-
-The togglebuf script cannot link users to Projects-Tasks-Time_entries while copying
-before the users activate their accounts.
-
-Copy objects without Users set:
-
-* For Projects without team (Everybody in workspace can see this project mode)
-Toggl API set same mode for copied Projects and shows anyone in Project list.
-* For Projects with team Toggl API set for copied Projects team with one
-member = the user, whose target Toggl token used to copy objects.
-* For Tasks Toggl API set anyone
-* For Time_entries Toggl API set the user, whose target Toggl token used to copy objects.
-
-### The togglebuf script do not link Users to copied objects in target Toggl account.
-
-If target Toggl token, which is used to copy objects will be changed Toggl will not
-link new Time entries to Projects owned by another user. This can cause the error
-`Cannot create target entry ... User cannot access the selected project`
-
-**Best is to use single target token for all copy operations.**
-
-## Notes
-
-* Some platforms have `pip3` instead of `pip` and `python3` instead of `python` commands
+## Copy objects order
 
 * Syncronize target clients, projects, tasks with source first before copy time entries.
-Time entries may be linked to this objects ids
+Time entries may be linked to this objects ids. The mismatch may cause the error
+`[Sync error]: no target object... for object:...`
 
 * Wait at list 30 seconds after copying objects for changes to take effect. Then to see
 results in web interface You have to reload page.
@@ -157,13 +147,57 @@ results in web interface You have to reload page.
 23:59 Your time. It is better to set Timezone UTC+00 in user profile for the user
 which token set to access source Toggl.
 
-* Time entries without start & stop time (duration only) do not copied
+* Time entries without start & stop time (duration only) do not copied.
 
-* Please do not delete clients, projects, tasks objects. If You will create new ones
-with same name links to objects will be lost because new objects will get other ids.
+* Configuration file has options to set include and exclude lists for Clients, Projects,
+Tasks to be copied. Include list working like white list and limit copied object names.
+Exclude list work as black list. Exclude list has more priority so if object name is
+in both include and exclude lists it will not be copied.
 
-* Target toggl account must not have any clients, projects, tasks not present in
-source account. Togglebuf use this check to avoid duplicates while sync operation
+#### Please use include and exclude lists carefully. There are some linked objects.
+If some Project excluded from copying, all it's tasks must be excluded too.
+Same is for clients and projects. The mismatch may cause the error
+`[Sync error]: no target object... for object:...`
+
+#### Please do not change target suffix after 1st use it.
+Next copy operation after suffix will be changed will add new set of Projects
+with new suffix.
+
+
+## Toggl limitations
+
+### Full Toggl data is visible only to workspace administrators.
+
+Use tokens from administrative accounts to copy between Toggl accounts.
+
+### Toggl users cannot be copied between Toggl accounts. 
+
+Projects may have users list (team), Tasks and Time entries may have attribute User.
+
+Users cannot be copied, invited only (need different e-mails)
+
+The togglebuf script cannot link users to Projects-Tasks-Time_entries while copying.
+
+Copied objects get following User info:
+
+* For projects Anyone.
+* For tasks Anyone
+* For time_entries the user, whose target Toggl token used to copy objects.
+
+#### Please do not assign Users to copied Projects in target Toggl account.
+
+If Users will be assigned this can cause the error
+`Cannot create target entry ... User cannot access the selected project`
+
+#### Please do not rename objects.
+
+This will cause object duplication at next copy operation.
+
+#### Please do not delete objects if You are planning to use it later.
+
+Toggl use object ids but not names to link objects. New object same name
+will get different id and all object links to it will be lost.
+
 
 ## References:
 
