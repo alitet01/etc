@@ -32,7 +32,7 @@ It allows to separate how R&D team reports the working hours vs. how customer ca
 
 or
 
-`download togglebuf.tar.gz from https://github.com/ops-guru/togglebuf/blob/Code_style_improvement/togglebuf.tar.gz`
+`download togglebuf.tar.gz from https://github.com/ops-guru/togglebuf/blob/Config_Options_Suffix/togglebuf.tar.gz`
 
 #### Note:
 
@@ -133,7 +133,7 @@ togglebuf clients
 
 togglebuf create two target Projects for each source one: same name and with suffix
 (raw_suffix from configuration file). All tasks and time entries get link to suffixed
-projects while copying. After some of then could be moved to Projects with source
+projects while copying. Later some of them could be moved to Projects with source
 names manually.
 
 
@@ -143,8 +143,8 @@ names manually.
 Time entries may be linked to this objects ids. The mismatch may cause the error
 `[Sync error]: no target object... for object:...`
 
-* Wait at list 30 seconds after copying objects for changes to take effect. Then to see
-results in web interface You have to reload page.
+* Wait at list 30 seconds after copying objects for changes to take effect. Then You have
+to reload page to see results in web interface.
 
 * Copy time entries dates cover the period from date_from 00:00 Your time till date_till
 23:59 Your time. It is better to set Timezone UTC+00 in user profile for the user
@@ -153,7 +153,7 @@ which token set to access source Toggl.
 * Time entries without start & stop time (duration only) do not copied.
 
 * Configuration file has options to set include and exclude lists for Clients, Projects,
-Tasks to be copied. Include list working like white list and limit copied object names.
+Tasks to be copied. Include list working like white list and limit object names to copy.
 Exclude list work as black list. Exclude list has more priority so if object name is
 in both include and exclude lists it will not be copied.
 
@@ -163,8 +163,8 @@ Same is for clients and projects. The mismatch may cause the error
 `[Sync error]: no target object... for object:...`
 
 #### Please do not change target suffix after 1st use it.
-Next copy operation after suffix will be changed will add new set of Projects
-with new suffix.
+If suffix will be changed next copy operation will add new set of Projects
+with new suffix at the end.
 
 
 ## Toggl limitations
