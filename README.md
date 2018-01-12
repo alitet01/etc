@@ -32,7 +32,7 @@ It allows to separate how R&D team reports the working hours vs. how customer ca
 
 or
 
-`download togglebuf.tar.gz from https://github.com/ops-guru/togglebuf/blob/Config_Options_Suffix/togglebuf.tar.gz`
+download archieve from `https://github.com/ops-guru/togglebuf/blob/Config_Options_Suffix/togglebuf.tar.gz`
 
 #### Note:
 
@@ -95,7 +95,6 @@ If You used previous version of togglebuf
 | **sync** | syncronize target clients, projects, tasks with source |
 | **cpte date_from date_till** | copy time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
 | **exit** | exit interactive mode |
-|---------| |
 | Options | |
 | **-h,--help** | print help |
 | **-i,--init** | initialize/generate config file |
@@ -129,7 +128,7 @@ Command-line interface will be opened with prompt **$>**
 togglebuf clients
 ```
 
-## Target Toggl object structure.
+## Target Toggl object structure
 
 togglebuf create two target Projects for each source one: same name and with suffix
 (raw_suffix from configuration file). All tasks and time entries get link to suffixed
