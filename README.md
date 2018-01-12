@@ -22,6 +22,10 @@ It allows to separate how R&D team reports the working hours vs. how customer ca
 
 `pip install git+git://github.com/ops-guru/pytoggl.git@Togglebuf_support`
 
+* Install PyYAML
+
+`pip install pyyaml`
+
 * Install application
 
 `git clone git@github.com:ops-guru/togglebuf.git`
@@ -94,10 +98,10 @@ If You used previous version of togglebuf
 |---------|-------------|
 | Option  | Description |
 |---------|-------------|
-| **-h|--help** | print help |
-| **-i|--init** | initialize/generate config file |
-| **-c|--config /path/to/alternative/conf.yml** | use alternative config file |
-| **-s|--shell** | interactive mode |
+| **-h,--help** | print help |
+| **-i,--init** | initialize/generate config file |
+| **-c,--config /path/to/alternative/conf.yml** | use alternative config file |
+| **-s,--shell** | interactive mode |
 
 ### Example usages
 * read help (`-h|--help`):
