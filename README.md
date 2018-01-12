@@ -95,9 +95,8 @@ If You used previous version of togglebuf
 | **sync** | syncronize target clients, projects, tasks with source |
 | **cpte date_from date_till** | copy time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
 | **exit** | exit interactive mode |
-|---------|-------------|
-| Option  | Description |
-|---------|-------------|
+|---------| |
+| Options | |
 | **-h,--help** | print help |
 | **-i,--init** | initialize/generate config file |
 | **-c,--config /path/to/alternative/conf.yml** | use alternative config file |
