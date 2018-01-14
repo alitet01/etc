@@ -169,6 +169,7 @@ could be linked to project and to task. It may cause the copy error.
 
 For example if some Project excluded from copying, all it's tasks must be excluded too.
 The mismatch may cause the error `[Sync error]: no target object... for object:...`
+All copy operations with errors will not be finished.
 
 #### Please do not change target suffix after 1st use it.
 If suffix will be changed next copy operation will add new set of Projects
@@ -178,11 +179,11 @@ with new suffix at the end.
 ## Backup
 
 ### Backup source clients, projects, tasks
-Write objects to json file backup.json in current directory
+Write objects to json file `backup.json` in current directory
 
 ### Backup source time entries started in date range
 Write time entries with start time included into date_from to date_till period
-to json file bute_date_from_date_till.json in current directory
+to json file `bute_date_from_date_till.json` in current directory
 
 Backup time entries dates cover the period from date_from 00:00 Your time till date_till
 23:59 according to timezone of user which token set to access source Toggl. It is better
@@ -190,12 +191,12 @@ to set Timezone UTC+00 in user profile for this user.
 
 ### Current version assumes the backup scenario:
 Backup period is from date_from to date_till, format: YYYY-MM-DD (year-month-date)
-1. run togglebuf backup
-2. togglebuf bute date_from date_till
+1. run `togglebuf backup`
+2. run `togglebuf bute date_from date_till`
 3. go to source Toggl interface and manual download csv file from Reports-Detailed section
 of Toggl with date_from date_till period set.
-4. pack files backup.json, bute_date_from_date_till.json, Toggl_time_entries_date_from_to_date_till.csv
-into archieve date_from_date_till.tar.gz
+4. pack files `backup.json`, `bute_date_from_date_till.json`, `Toggl_time_entries_date_from_to_date_till.csv`
+into archieve `date_from_date_till.tar.gz`
 5. Upload the archieve to AWS S3 bucket 'toggl-backup'
 
 * Note: while import time entries from csv backup file Toggl will set start/stop time
