@@ -179,7 +179,8 @@ with new suffix at the end.
 Write objects to json file backup.json in current directory
 
 ### Backup source time entries started in date range
-Write objects to json file bute_date_from_date_till.json in current directory
+Write time entries with start time included into date_from to date_till period
+to json file bute_date_from_date_till.json in current directory
 
 Backup time entries dates cover the period from date_from 00:00 Your time till date_till
 23:59 according to timezone of user which token set to access source Toggl. It is better
@@ -194,6 +195,9 @@ of Toggl with date_from date_till period set.
 4. pack files backup.json, bute_date_from_date_till.json, Toggl_time_entries_date_from_to_date_till.csv
 into archieve date_from_date_till.tar.gz
 5. Upload the archieve to AWS S3 bucket 'toggl-backup'
+
+* Note: while import time entries from csv backup file Toggl will set start/stop time
+using current timezone of user set in each record.
 
 
 ## Toggl limitations
