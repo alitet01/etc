@@ -164,9 +164,11 @@ Exclude list work as black list. Exclude list has more priority so if object nam
 in both include and exclude lists it will not be copied.
 
 #### Please use include and exclude lists carefully. There are some linked objects.
-If some Project excluded from copying, all it's tasks must be excluded too.
-Same is for clients and projects. The mismatch may cause the error
-`[Sync error]: no target object... for object:...`
+Project could be linked to client. Task usually is linked to project. Time entry
+could be linked to project and to task. It may cause the copy error.
+
+For example if some Project excluded from copying, all it's tasks must be excluded too.
+The mismatch may cause the error `[Sync error]: no target object... for object:...`
 
 #### Please do not change target suffix after 1st use it.
 If suffix will be changed next copy operation will add new set of Projects
