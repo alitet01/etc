@@ -132,7 +132,7 @@ togglebuf clients
 
 * backup time entries started in date range:
 ```
-togglebuf bute 2018-091-01 2018-01-31
+togglebuf bute 2018-01-01 2018-01-31
 ```
 
 ## Target Toggl object structure
@@ -153,8 +153,8 @@ Time entries may be linked to this objects ids. The mismatch may cause the error
 to reload page to see results in web interface.
 
 * Copy time entries dates cover the period from date_from 00:00 Your time till date_till
-23:59 Your time. It is better to set Timezone UTC+00 in user profile for the user
-which token set to access source Toggl.
+23:59 according to timezone of user which token set to access source Toggl. It is better
+to set Timezone UTC+00 in user profile for this user.
 
 * Time entries without start & stop time (duration only) do not copied.
 
@@ -173,15 +173,27 @@ If suffix will be changed next copy operation will add new set of Projects
 with new suffix at the end.
 
 
-## Backup source clients, projects, tasks
+## Backup
+
+### Backup source clients, projects, tasks
 Write objects to json file backup.json in current directory
 
-
-## Backup source time entries started in date range
+### Backup source time entries started in date range
 Write objects to json file bute_date_from_date_till.json in current directory
-* Backup time entries dates cover the period from date_from 00:00 Your time till date_till
-23:59 Your time. It is better to set Timezone UTC+00 in user profile for the user
-which token set to access source Toggl.
+
+Backup time entries dates cover the period from date_from 00:00 Your time till date_till
+23:59 according to timezone of user which token set to access source Toggl. It is better
+to set Timezone UTC+00 in user profile for this user.
+
+### Current version assumes the backup scenario:
+Backup period is from date_from to date_till, format: YYYY-MM-DD (year-month-date)
+1. run togglebuf backup
+2. togglebuf bute date_from date_till
+3. go to source Toggl interface and manual download csv file from Reports-Detailed section
+of Toggl with date_from date_till period set.
+4. pack files backup.json, bute_date_from_date_till.json, Toggl_time_entries_date_from_to_date_till.csv
+into archieve date_from_date_till.tar.gz
+5. Upload the archieve to AWS S3 bucket 'toggl-backup'
 
 
 ## Toggl limitations
