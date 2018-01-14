@@ -94,8 +94,7 @@ If You used previous version of togglebuf
 | **tasks** | show tasks |
 | **sync** | syncronize target clients, projects, tasks with source |
 | **cpte date_from date_till** | copy time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
-| **backup** | backup source clients, projects, tasks|
-| **bute date_from date_till** | backup source time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
+| **backup date_from date_till** | backup source objects, time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
 | **exit** | exit interactive mode |
 | Options | |
 | **-h,--help** | print help |
@@ -178,26 +177,22 @@ with new suffix at the end.
 
 ## Backup
 
-### Backup source clients, projects, tasks
-Write objects to json file `backup.json` in current directory
+### Backup command action
+The backup command read clients, projects, tasks and time entries from source Toggl.
+Then it stores all data in json file `backup_date_from_date_till.json` in current directory.
 
-### Backup source time entries started in date range
-Write time entries with start time included into date_from to date_till period
-to json file `bute_date_from_date_till.json` in current directory
-
-Backup time entries dates cover the period from date_from 00:00 till date_till 23:59
+Backup time entries dates cover the period date_from 00:00 till date_till 23:59
 according to timezone of user which token set to access source Toggl. It is better
 to set Timezone UTC+00 in user profile for this user.
 
 ### Current version assumes the backup scenario:
 Backup period is from date_from to date_till, format: YYYY-MM-DD (year-month-date)
-1. run `togglebuf backup`
-2. run `togglebuf bute date_from date_till`
-3. go to source Toggl interface and manual download csv file from Reports-Detailed section
+1. run `togglebuf backup date_from date_till`
+2. go to source Toggl interface and manual download csv file from Reports-Detailed section
 of Toggl with date_from date_till period set.
-4. pack files `backup.json`, `bute_date_from_date_till.json`, `Toggl_time_entries_date_from_to_date_till.csv`
-into archieve `date_from_date_till.tar.gz`
-5. Upload the archieve to AWS S3 bucket 'toggl-backup'
+3. pack files `backup_date_from_date_till.json`, `Toggl_time_entries_date_from_to_date_till.csv`
+into archieve `backup_date_from_date_till.tar.gz`
+4. Upload the archieve to AWS S3 bucket 'toggl-backup'
 
 * Note: at restore stage while import time entries from csv backup file Toggl will set
 start/stop time using current timezone of user set in each record. Correction must be
