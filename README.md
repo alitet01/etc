@@ -94,6 +94,8 @@ If You used previous version of togglebuf
 | **tasks** | show tasks |
 | **sync** | syncronize target clients, projects, tasks with source |
 | **cpte date_from date_till** | copy time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
+| **backup** | backup source clients, projects, tasks|
+| **bute date_from date_till** | backup source time entries started in date range, date format: YYYY-MM-DD (year-month-date) |
 | **exit** | exit interactive mode |
 | Options | |
 | **-h,--help** | print help |
@@ -126,6 +128,11 @@ Command-line interface will be opened with prompt **$>**
 * list client objects (`clients`):
 ```
 togglebuf clients
+```
+
+* backup time entries started in date range:
+```
+togglebuf bute 2018-091-01 2018-01-31
 ```
 
 ## Target Toggl object structure
@@ -164,6 +171,17 @@ Same is for clients and projects. The mismatch may cause the error
 #### Please do not change target suffix after 1st use it.
 If suffix will be changed next copy operation will add new set of Projects
 with new suffix at the end.
+
+
+## Backup source clients, projects, tasks
+Write objects to json file backup.json in current directory
+
+
+## Backup source time entries started in date range
+Write objects to json file bute_date_from_date_till.json in current directory
+* Backup time entries dates cover the period from date_from 00:00 Your time till date_till
+23:59 Your time. It is better to set Timezone UTC+00 in user profile for the user
+which token set to access source Toggl.
 
 
 ## Toggl limitations
