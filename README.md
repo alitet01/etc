@@ -129,9 +129,9 @@ Command-line interface will be opened with prompt **$>**
 togglebuf clients
 ```
 
-* backup time entries started in date range:
+* backup source objects, time entries started in date range:
 ```
-togglebuf bute 2018-01-01 2018-01-31
+togglebuf backup 2018-01-01 2018-01-31
 ```
 
 ## Target Toggl object structure
