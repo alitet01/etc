@@ -152,8 +152,8 @@ Time entries may be linked to this objects ids. The mismatch may cause the error
 * Wait at list 30 seconds after copying objects for changes to take effect. Then You have
 to reload page to see results in web interface.
 
-* Copy time entries dates cover the period from date_from 00:00 Your time till date_till
-23:59 according to timezone of user which token set to access source Toggl. It is better
+* Copy time entries dates cover the period from date_from 00:00 till date_till 23:59
+according to timezone of user which token set to access source Toggl. It is better
 to set Timezone UTC+00 in user profile for this user.
 
 * Time entries without start & stop time (duration only) do not copied.
@@ -185,8 +185,8 @@ Write objects to json file `backup.json` in current directory
 Write time entries with start time included into date_from to date_till period
 to json file `bute_date_from_date_till.json` in current directory
 
-Backup time entries dates cover the period from date_from 00:00 Your time till date_till
-23:59 according to timezone of user which token set to access source Toggl. It is better
+Backup time entries dates cover the period from date_from 00:00 till date_till 23:59
+according to timezone of user which token set to access source Toggl. It is better
 to set Timezone UTC+00 in user profile for this user.
 
 ### Current version assumes the backup scenario:
@@ -199,8 +199,9 @@ of Toggl with date_from date_till period set.
 into archieve `date_from_date_till.tar.gz`
 5. Upload the archieve to AWS S3 bucket 'toggl-backup'
 
-* Note: while import time entries from csv backup file Toggl will set start/stop time
-using current timezone of user set in each record.
+* Note: at restore stage while import time entries from csv backup file Toggl will set
+start/stop time using current timezone of user set in each record. Correction must be
+finished manually in csv file before import to Toggl.
 
 
 ## Toggl limitations
