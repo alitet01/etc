@@ -24,7 +24,7 @@ It allows to separate how R&D team reports the working hours vs. how customer ca
         
         pip install git+ssh://git@github.com/ops-guru/togglebuf.git@master#egg=togglebuf
 
-### Note:
+#### Note:
 
 * Some platforms have `pip3` instead of `pip` and `python3` instead of `python` commands
 
