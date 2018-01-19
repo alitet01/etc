@@ -224,6 +224,11 @@ Copied objects get following User info:
 * For tasks Anyone
 * For time_entries the user, whose target Toggl token used to copy objects.
 
+### Task name must be unique in source Toggl workspace. 
+
+If a few source Toggl tasks have same name only one of these objects will be copied to target Toggl.
+All time entries having this task name will be linked to this copied task in target workspace.
+
 #### Please do not assign Users to copied Projects in target Toggl account.
 
 If Users will be assigned this can cause the error
