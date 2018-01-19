@@ -49,7 +49,6 @@ It allows to separate how R &amp; D team reports the working hours vs. how custo
 1. copy time entries by running:
         
         togglebuf --start-date ${mystart} --end-date ${myend} cpte
-
 #### Note:
 
 * if `--start-date` and `--end-date` options are not set the `backup` and `cpte` commands
