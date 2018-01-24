@@ -142,9 +142,9 @@ togglebuf backup --start-date 2018-01-01 --end-date 2018-01-31
 ## Target Toggl object structure
 
 togglebuf create two target Projects for each source one: same name and with suffix
-(raw_suffix from configuration file). All tasks and time entries get link to suffixed
-projects while copying. Later some of them could be moved to Projects with source
-names manually.
+(raw_suffix from configuration file). Tasks are copied to both Projects. Time entries
+get link to suffixed projects while copying. Later some of them could be moved to
+Projects with source names manually.
 
 
 ## Copy objects order
@@ -223,11 +223,6 @@ Copied objects get following User info:
 * For projects Anyone.
 * For tasks Anyone
 * For time_entries the user, whose target Toggl token used to copy objects.
-
-### Task name must be unique in source Toggl workspace. 
-
-If a few source Toggl tasks have same name only one of these objects will be copied to target Toggl.
-All time entries having this task name will be linked to this copied task in target workspace.
 
 #### Please do not assign Users to copied Projects in target Toggl account.
 

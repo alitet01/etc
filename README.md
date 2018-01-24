@@ -52,7 +52,7 @@ It allows to separate how R &amp; D team reports the working hours vs. how custo
 #### Note:
 
 * if `--start-date` and `--end-date` options are not set the `backup` and `cpte` commands
-use default period from the begin of current year till today
+use default period today only
 
 
 ## Configuration
@@ -98,7 +98,6 @@ togglebuf backup --start-date 2018-01-01 --end-date 2018-01-31
 * Togglebuf use default workspaces.
 * Full Toggl data is visible only to workspace administrators.
 * Toggl users cannot be copied between Toggl accounts 
-* Task name must be unique in source Toggl workspace.
 * Do not assign **Users** to copied Projects in target Toggl account.
 * Do not rename objects (clients, projects, tasks)
 * Do not delete objects if You are planning to use it later.
