@@ -1,109 +1,143 @@
-# togglebuf - buffer for toggl
+JMX Exporter
+=====
 
-## Overview
+JMX to Prometheus exporter: a collector that can configurably scrape and
+expose mBeans of a JMX target.
 
-`togglbuf` is backup/duplication command-line utility for toggl.com accounts
+This exporter is intended to be run as a Java Agent, exposing a HTTP server
+and serving metrics of the local JVM. It can be also run as an independent
+HTTP server and scrape remote JMX targets, but this has various
+disadvantages, such as being harder to configure and being unable to expose
+process metrics (e.g., memory and CPU usage). Running the exporter as a Java
+Agent is thus strongly encouraged.
 
-This application buffers between 2 toggl accounts - **`src`** and **`dst`**
+## Running
 
-It allows to separate how R &amp; D team reports the working hours vs. how customer can view the progress of budget utilization/time spent/break down reports
+To run as a javaagent [download the jar](https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.2.0/jmx_prometheus_javaagent-0.2.0.jar) and run:
 
-## Requirements
+```
+java -javaagent:./jmx_prometheus_javaagent-0.2.0.jar=8080:config.yaml -jar yourJar.jar
+```
+Metrics will now be accessible at http://localhost:8080/metrics
 
-1. Access to this repository (via ssh, using the SSH keys)
-2. [pytoggle](https://github.com/ops-guru/pytoggle.git) library
+To bind the java agent to a specific IP change the port number to `host:port`.
 
+See `./run_sample_httpserver.sh` for a sample script that runs the httpserver against itself.
 
-## Installation
+## Building
 
-* Install toggl API client library:
-        
-        pip install git+ssh://git@github.com/ops-guru/pytoggle.git@master#egg=pytoggle
-* Install application
-        
-        pip install git+ssh://git@github.com/ops-guru/togglebuf.git@master#egg=togglebuf
-
-#### Note:
-
-* Some platforms have `pip3` instead of `pip` and `python3` instead of `python` commands
-
-## First time setup
-
-1. Generate skeleton configuration file, by running:
-        
-        togglebuf --init
-1. you can safely delete the following attributes for starters:
-    * `"projects"`
-    * `"clients"`
-
-
-## Every time:
-
-1. run sync to ensure all `source`'s projects, tasks and clients are present in `target`:
-        
-        togglebuf sync
-1. (optional) dump source to json file
-        
-        togglebuf --start-date ${mystart} --end-date ${myend} backup
-
-1. copy time entries by running:
-        
-        togglebuf --start-date ${mystart} --end-date ${myend} cpte
-#### Note:
-
-* if `--start-date` and `--end-date` options are not set the `backup` and `cpte` commands
-use default period today only
-
+`mvn package` to build.
 
 ## Configuration
-
-For fine tuned Configuration, please consult [CONFIGURATION](CONFIGURATION.md)
-
-#### New version note:
-
-If You used previous version of togglebuf:
-1. Please copy Toggl Api tokens for source and target connections from `settings.json` to `settings.json`.
-1. Uninstall any previously installed versions of `PyToggl`, or `pytoggl`, or `toggl`
-1. Install the `pytoggle` version from the above
-
-
-## Usage
-
-1. For documentation, please consult `togglebuf -h`
-
-### Example usages
-* initialize/generate config file (`-i|--init`):
+The configuration is in YAML. An example with all possible options:
+```yaml
+---
+startDelaySeconds: 0
+hostPort: 127.0.0.1:1234
+jmxUrl: service:jmx:rmi:///jndi/rmi://127.0.0.1:1234/jmxrmi
+ssl: false
+lowercaseOutputName: false
+lowercaseOutputLabelNames: false
+whitelistObjectNames: ["org.apache.cassandra.metrics:*"]
+blacklistObjectNames: ["org.apache.cassandra.metrics:type=ColumnFamily,*"]
+rules:
+  - pattern: 'org.apache.cassandra.metrics<type=(\w+), name=(\w+)><>Value: (\d+)'
+    name: cassandra_$1_$2
+    value: $3
+    valueFactor: 0.001
+    labels: {}
+    help: "Cassandra metric $1 $2"
+    type: GAUGE
+    attrNameSnakeCase: false
 ```
-togglebuf --init
+Name     | Description
+---------|------------
+startDelaySeconds | start delay before serving requests. Any requests within the delay period will result in an empty metrics set.
+hostPort | The host and port to connect to via remote JMX. If neither this nor jmxUrl is specified, will talk to the local JVM.
+username | The username to be used in remote JMX password authentication.
+password | The password to be used in remote JMX password authentication.
+jmxUrl   | A full JMX URL to connect to. Should not be specified if hostPort is.
+ssl      | Whether JMX connection should be done over SSL. To configure certificates you have to set following system properties:<br/>`-Djavax.net.ssl.keyStore=/home/user/.keystore`<br/>`-Djavax.net.ssl.keyStorePassword=changeit`<br/>`-Djavax.net.ssl.trustStore=/home/user/.truststore`<br/>`-Djavax.net.ssl.trustStorePassword=changeit`
+lowercaseOutputName | Lowercase the output metric name. Applies to default format and `name`. Defaults to false.
+lowercaseOutputLabelNames | Lowercase the output metric label names. Applies to default format and `labels`. Defaults to false.
+whitelistObjectNames | A list of [ObjectNames](http://docs.oracle.com/javase/6/docs/api/javax/management/ObjectName.html) to query. Defaults to all mBeans.
+blacklistObjectNames | A list of [ObjectNames](http://docs.oracle.com/javase/6/docs/api/javax/management/ObjectName.html) to not query. Takes precedence over `whitelistObjectNames`. Defaults to none.
+rules    | A list of rules to apply in order, processing stops at the first matching rule. Attributes that aren't matched aren't collected. If not specified, defaults to collecting everything in the default format.
+pattern  | Regex pattern to match against each bean attribute. The pattern is not anchored. Capture groups can be used in other options. Defaults to matching everything.
+attrNameSnakeCase | Converts the attribute name to snake case. This is seen in the names matched by the pattern and the default format. For example, anAttrName to an\_attr\_name. Defaults to false.
+name     | The metric name to set. Capture groups from the `pattern` can be used. If not specified, the default format will be used. If it evaluates to empty, processing of this attribute stops with no output.
+value    | Value for the metric. Static values and capture groups from the `pattern` can be used. If not specified the scraped mBean value will be used.
+valueFactor | Optional number that `value` (or the scraped mBean value if `value` is not specified) is multiplied by, mainly used to convert mBean values from milliseconds to seconds.
+labels   | A map of label name to label value pairs. Capture groups from `pattern` can be used in each. `name` must be set to use this. Empty names and values are ignored. If not specified and the default format is not being used, no labels are set.
+help     | Help text for the metric. Capture groups from `pattern` can be used. `name` must be set to use this. Defaults to the mBean attribute decription and the full name of the attribute.
+type     | The type of the metric, can be `GAUGE`, `COUNTER` or `UNTYPED`. `name` must be set to use this. Defaults to `UNTYPED`.
+
+Metric names and label names are sanitized. All characters other than `[a-zA-Z0-9:_]` are replaced with underscores,
+and adjacent underscores are collapsed. There's no limitations on label values or the help text.
+
+A minimal config is `{}`, which will connect to the local JVM and collect everything in the default format.
+Note that the scraper always processes all mBeans, even if they're not exported.
+
+Example configurations for javaagents can be found at  https://github.com/prometheus/jmx_exporter/tree/master/example_configs
+
+### Pattern input
+The format of the input matches against the pattern is
+```
+domain<beanpropertyName1=beanPropertyValue1, beanpropertyName2=beanPropertyValue2, ...><key1, key2, ...>attrName: value
 ```
 
-* use alternative config file location (`-c|--config`):
+Part     | Description
+---------|------------
+domain   | Bean name. This is the part before the colon in the JMX object name.
+beanProperyName/Value | Bean properties. These are the key/values after the colon in the JMX object name.
+keyN     | If composite or tabular data is encountered, the name of the attribute is added to this list.
+attrName | The name of the attribute. For tabular data, this will be the name of the column. If `attrNameSnakeCase` is set, this will be converted to snake case.
+value    | The value of the attribute.
+
+No escaping or other changes are made to these values, with the exception of if `attrNameSnakeCase` is set.
+The default help includes this string, except for the value.
+
+### Default format
+The default format will transform beans in a way that should produce sane metrics in most cases. It is
 ```
-togglebuf --config /path/to/alternative/settings.json
+domain_beanPropertyValue1_key1_key2_...keyN_attrName{beanpropertyName2="beanPropertyValue2", ...}: value
+```
+If a given part isn't set, it'll be excluded.
+
+## Testing
+
+`mvn test` to test.
+
+## Debugging
+
+You can start the jmx's scraper in standlone mode in order to debug what is called 
+
+`java -cp jmx_exporter.jar io.prometheus.jmx.JmxScraper  service:jmx:rmi:your_url`
+
+To get finer logs (including the duration of each jmx call),
+create a file called logging.properties with this content:
+
+```
+handlers=java.util.logging.ConsoleHandler
+java.util.logging.ConsoleHandler.level=ALL
+io.prometheus.jmx.level=ALL
+io.prometheus.jmx.shaded.io.prometheus.jmx.level=ALL
 ```
 
-* list client objects (`clients`):
-```
-togglebuf clients
-```
+Add the following flag to your Java invocation:
 
-* backup source objects, time entries started in date range:
-```
-togglebuf backup --start-date 2018-01-01 --end-date 2018-01-31
-```
+`-Djava.util.logging.config.file=/path/to/logging.properties`
 
 
-## Togglebuf limitations and caveats
+## Installing
 
-* Togglebuf use default workspaces.
-* Full Toggl data is visible only to workspace administrators.
-* Toggl users cannot be copied between Toggl accounts 
-* Do not assign **Users** to copied Projects in target Toggl account.
-* Do not rename objects (clients, projects, tasks)
-* Do not delete objects if You are planning to use it later.
+A Debian binary package is created as part of the build process and it can
+be used to install an executable into `/usr/bin/jmx_exporter` with configuration
+in `/etc/jmx_exporter/jmx_exporter.yaml`.
 
 
-## Authors:
+## Security
 
-- Victor Timohin <vvt@opsguru.io>
-- Max Kovgan <max@opsguru.io>
+Safe access to JMX Exporter with TLS and authentication realised in secure agents.
+
+Please consult [SECURE](SECURE.md) for more info.
