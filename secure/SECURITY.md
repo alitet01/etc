@@ -25,7 +25,7 @@ Make sure the file is protected by safe access rights. The file syntax is:
 `password=pass`
 
 
-The keystore and credentials for javaagent are configurable via last two parameters, see Running section below.
+The keystore and the credentials for javaagent are configurable via last two parameters, see example below.
 
 
 #### Running
@@ -42,4 +42,4 @@ java -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.aut
 
 Metrics will now be accessible at http://localhost:5557/metrics
 
-See run_* sample scripts in `secure` folder which runs rebuilt agents.
+See run_* sample scripts which runs rebuilt agents in `secure` project folder.
