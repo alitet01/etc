@@ -140,4 +140,4 @@ in `/etc/jmx_exporter/jmx_exporter.yaml`.
 
 Safe access to JMX Exporter with TLS and authentication realised in secure agents.
 
-Please consult [SECURE](SECURE.md) for more info.
+Please consult [SECURITY](secure/SECURITY.md) for more info.
