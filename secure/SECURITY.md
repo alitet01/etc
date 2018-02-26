@@ -1,29 +1,34 @@
 ## Security
 
-TLS:
+#### TLS:
 
 The app expects a java keystore of certificates.
 In order to create a new self-signed cert use:
 
 `keytool -genkey -alias sitename -keyalg RSA -keystore keystore.jks -keysize 2048`
 
-keystore path is configurable via:
+keystore path for the server is configurable via:
 
 `-DkeyStore=secure/keystore.jks`
 
 
-Authentication:
+#### Authentication:
 
-Basic HTTP auth is cofigurable via:
+Basic HTTP auth for the server is cofigurable via:
+
 `-DauthConfig=secure/credentials.txt`
 
-Make sure the file is protected by safe access attributes. The file syntax is:
+Make sure the file is protected by safe access rights. The file syntax is:
 
 `username=user`
+
 `password=pass`
 
 
-## Running
+The keystore and credentials for javaagent are configurable via last two parameters, see Running section below.
+
+
+#### Running
 
 To run as a secure javaagent:
 ```
