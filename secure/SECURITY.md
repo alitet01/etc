@@ -40,6 +40,6 @@ To run as an independent HTTPS server:
 java -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=5555 -DkeyStore=keystore.jks -DauthConfig=credentials.txt -jar ./jmx_prometheus_httpserver_secure-0.2.1-jar-with-dependencies.jar 5557 config.yaml
 ```
 
-Metrics will now be accessible at http://localhost:5557/metrics
+Metrics will now be accessible at https://localhost:5557/metrics
 
 See run_* sample scripts which runs rebuilt agents in `secure` project folder.
