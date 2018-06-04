@@ -45,7 +45,7 @@ stageMetrics.sendReport(s"localhost:9091", s"aaa_job", s"label_name", s"label_va
 stageMetrics.sendReport(s"localhost:9091", s"aaa_job")
 ```
 
-3. For automation of work this scala script could be stored in file 'script.scala'.
+3. For automation the scala script could be stored in file 'script.scala'.
 Next run from spark directory:
 ```
 bin/spark-shell --jars path/to/sparkMeasure/target/scala-2.11/spark-measure_2.11-0.12-SNAPSHOT.jar -i path/to/script.scala
@@ -54,7 +54,7 @@ bin/spark-shell --jars path/to/sparkMeasure/target/scala-2.11/spark-measure_2.11
 ---
 **Additional info on PushGateway implementation:**
 
-* case class PushGateway(serverIPnPort: String, metricsJob: String)
+case class PushGateway(serverIPnPort: String, metricsJob: String)
    * Http Client: send metrics to prometheus pushgateway
    * def validateLabel(name: String): String -> validates label name, replace not valid symbols
    * def validateMetric(name: String): String -> validates metric name, replace not valid symbols
@@ -62,7 +62,7 @@ bin/spark-shell --jars path/to/sparkMeasure/target/scala-2.11/spark-measure_2.11
 
 **Additional info on Stage Metrics:**
 
-* case class StageMetrics(sparkSession: SparkSession)
+case class StageMetrics(sparkSession: SparkSession)
    * Helper class to help in collecting and storing performance metrics.
    - Added method:
    * def sendReport(serverIPnPort: String, metricsJob: String,
@@ -71,7 +71,7 @@ bin/spark-shell --jars path/to/sparkMeasure/target/scala-2.11/spark-measure_2.11
 
 **Additional info on Task Metrics:**
 
-* case class TaskMetrics(sparkSession: SparkSession, gatherAccumulables: Boolean = false)
+case class TaskMetrics(sparkSession: SparkSession, gatherAccumulables: Boolean = false)
    * Collects metrics at the end of each Task
    - Added method:
    * def sendReport(serverIPnPort: String, metricsJob: String,
