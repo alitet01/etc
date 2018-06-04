@@ -6,7 +6,7 @@ Batch jobs send metrics to an intermediary job which Prometheus can scrape. The 
    - [Prometheus monitoring system](https://prometheus.io/)
    - [Pushing metrics to Prometheus](https://prometheus.io/docs/instrumenting/pushing/)
 
-**sparkMeasure has built-in class PushGateway to send metrics to Prometheus via Pushgateway.**
+#### sparkMeasure has built-in class PushGateway to send metrics to Prometheus via Pushgateway. ####
 
 **Parameters:**
 
@@ -56,6 +56,8 @@ bin/spark-shell --jars path/to/sparkMeasure/target/scala-2.11/spark-measure_2.11
 
 case class PushGateway(serverIPnPort: String, metricsJob: String)
    * Http Client: send metrics to prometheus pushgateway
+
+Methods:
    * def validateLabel(name: String): String -> validates label name, replace not valid symbols
    * def validateMetric(name: String): String -> validates metric name, replace not valid symbols
    * def post(metrics: String, metricsType: String, labelName: String, labelValue: String): Unit -> post metrics to prometheus.
