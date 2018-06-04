@@ -1,7 +1,7 @@
 # sparkMeasure
 ## Export metrics to the Prometheus monitoring system
 
-To monitor batch jobs with Prometheus data must be sent to an intermediary job which Prometheus can scrape. The Prometheus Pushgateway can accept collected data and keep it for Prometheus.
+Batch jobs send metrics to an intermediary job which Prometheus can scrape. The Prometheus Pushgateway can accept collected data and keep it for Prometheus scraping.
 * Related info:
    - [Prometheus monitoring system](https://prometheus.io/)
    - [Pushing metrics to Prometheus](https://prometheus.io/docs/instrumenting/pushing/)
@@ -10,8 +10,8 @@ To monitor batch jobs with Prometheus data must be sent to an intermediary job w
 
 **Parameters:**
 
-* serverIPnPort: String with prometheus pushgateway hostIP:Port
-* metricsJob: String with job name
+* serverIPnPort: String with prometheus pushgateway hostIP:Port,
+* metricsJob: job name,
 * labelName: metrics label name,
 * labelValue: metrics label value
 
@@ -24,8 +24,8 @@ https://prometheus.io/docs/instrumenting/exposition_formats/
  * Valid characteers for metrics and label names are: A-Z, a-z, digits and '_'.
  * Metric name can also contain ':'.
  * Metrics and label names cannot start with digit.
-All non-matching characters will be replaced with '_'.
-If some name starts with digit leading '_' will be added.
+ * All non-matching characters will be replaced with '_'.
+ * If some name starts with digit leading '_' will be added.
 
 **Examples:**
  
@@ -40,7 +40,7 @@ stageMetrics.end()
 stageMetrics.sendReport(s"localhost:9091", s"aaa_job", s"label_name", s"label_value")
 ```
 
-2. Short syntax can be used for spark application name as label_name and application id as label_value :
+2. Short syntax can be used to set spark application name as label_name and application id as label_value :
 ```
 stageMetrics.sendReport(s"localhost:9091", s"aaa_job")
 ```
@@ -64,7 +64,7 @@ bin/spark-shell --jars path/to/sparkMeasure/target/scala-2.11/spark-measure_2.11
 
 * case class StageMetrics(sparkSession: SparkSession)
    * Helper class to help in collecting and storing performance metrics.
-   Added method:
+   - Added method:
    * def sendReport(serverIPnPort: String, metricsJob: String,
      labelName: String = sparkSession.sparkContext.appName,
      labelValue: String = sparkSession.sparkContext.applicationId): Unit -> send metrics to prometheus pushgateway
@@ -73,7 +73,7 @@ bin/spark-shell --jars path/to/sparkMeasure/target/scala-2.11/spark-measure_2.11
 
 * case class TaskMetrics(sparkSession: SparkSession, gatherAccumulables: Boolean = false)
    * Collects metrics at the end of each Task
-   Added method:
+   - Added method:
    * def sendReport(serverIPnPort: String, metricsJob: String,
      labelName: String = sparkSession.sparkContext.appName,
      labelValue: String = sparkSession.sparkContext.applicationId): Unit -> send metrics to prometheus pushgateway
