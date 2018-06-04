@@ -64,7 +64,8 @@ case class PushGateway(serverIPnPort: String, metricsJob: String)
 
 case class StageMetrics(sparkSession: SparkSession)
    * Helper class to help in collecting and storing performance metrics.
-   - Added method:
+
+Added method:
    * def sendReport(serverIPnPort: String, metricsJob: String,
      labelName: String = sparkSession.sparkContext.appName,
      labelValue: String = sparkSession.sparkContext.applicationId): Unit -> send metrics to prometheus pushgateway
@@ -73,7 +74,8 @@ case class StageMetrics(sparkSession: SparkSession)
 
 case class TaskMetrics(sparkSession: SparkSession, gatherAccumulables: Boolean = false)
    * Collects metrics at the end of each Task
-   - Added method:
+
+Added method:
    * def sendReport(serverIPnPort: String, metricsJob: String,
      labelName: String = sparkSession.sparkContext.appName,
      labelValue: String = sparkSession.sparkContext.applicationId): Unit -> send metrics to prometheus pushgateway
