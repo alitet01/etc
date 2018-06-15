@@ -351,3 +351,42 @@ GC:            Amount of time spent in GC across all tasks in the given stage as
 If the stage contributes large percentage to overall application time, we could look into
 these metrics to check which part (Shuffle write, read fetch or GC is responsible)
 ```
+
+## Built jars:
+   - [sparkMeasure](https://github.com/alitet01/test_readme/blob/master/spark-measure_2.11-0.12-SNAPSHOT.jar)
+   - [sparklens](https://github.com/alitet01/test_readme/blob/master/sparklens_2.11-0.1.2.jar)
+
+## Run example:
+   - sparkMeasure
+
+```
+spark-shell --jars spark-measure_2.11-0.12-SNAPSHOT.jar
+
+val taskMetrics = ch.cern.sparkmeasure.TaskMetrics(spark)
+val stageMetrics = ch.cern.sparkmeasure.StageMetrics(spark)
+taskMetrics.begin()
+stageMetrics.begin()
+
+//Your code here
+
+taskMetrics.end()
+stageMetrics.end()
+taskMetrics.printReport()
+stageMetrics.printReport()
+
+```
+
+   - sparklens
+
+```
+spark-shell --jars sparklens_2.11-0.1.2.jar --conf spark.extraListeners=com.qubole.sparklens.QuboleJobListener
+
+import com.qubole.sparklens.QuboleNotebookListener
+val QNL = new QuboleNotebookListener(sc.getConf)
+sc.addSparkListener(QNL)
+
+QNL.profileIt {
+    //Your code here
+}
+```
+
