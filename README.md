@@ -1,6 +1,6 @@
 # sparkMeasure with sparklens
 
-1. sparkMeasure output:
+### 1. sparkMeasure output:
 ```
 Scheduling mode = FIFO
 Spark Contex default degree of parallelism = 2
@@ -66,7 +66,7 @@ sum(shuffleBytesWritten) => 118 (118 Bytes)
 sum(shuffleRecordsWritten) => 2
 ```
 
-1. sparklens output:
+### 2. sparklens output:
 ```
 Total tasks in all stages 4
 Per Stage  Utilization
