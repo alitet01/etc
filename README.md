@@ -1,4 +1,4 @@
-# sparkMeasure with sparklens
+# sparkMeasure with sparklens output example
 
 ### 1. sparkMeasure output:
 ```
